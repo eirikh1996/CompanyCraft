@@ -3,7 +3,6 @@ package io.github.jisaacs1207.CompanyCraft;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Server;
@@ -68,7 +67,7 @@ public final class SerializableLocation
   
   public final Map<String, Object> serialize()
   {
-    Map<String, Object> map = new HashMap();
+    Map<String, Object> map = new HashMap<String, Object>();
     map.put("world", this.world);
     map.put("uuid", this.uuid);
     map.put("x", Double.valueOf(this.x));

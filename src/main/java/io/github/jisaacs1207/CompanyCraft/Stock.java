@@ -3,13 +3,10 @@ package io.github.jisaacs1207.CompanyCraft;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
-import org.bukkit.configuration.file.FileConfiguration;
 
 public class Stock
 {

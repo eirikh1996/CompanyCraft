@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -63,7 +64,7 @@ public abstract class ConfigObject
   protected Object loadObject(Field field, ConfigurationSection cs, String path, int depth)
     throws Exception
   {
-    Class clazz = getClassAtDepth(field.getGenericType(), depth);
+    Class<?> clazz = getClassAtDepth(field.getGenericType(), depth);
     if ((ConfigObject.class.isAssignableFrom(clazz)) && (isConfigurationSection(cs.get(path)))) {
       return getConfigObject(clazz, cs.getConfigurationSection(path));
     }
@@ -81,7 +82,7 @@ public abstract class ConfigObject
     }
     if ((List.class.isAssignableFrom(clazz)) && (isConfigurationSection(cs.get(path))))
     {
-      Class subClazz = getClassAtDepth(field.getGenericType(), depth + 1);
+      Class<?> subClazz = getClassAtDepth(field.getGenericType(), depth + 1);
       if ((ConfigObject.class.isAssignableFrom(subClazz)) || (Location.class.isAssignableFrom(subClazz)) || (Vector.class.isAssignableFrom(subClazz)) || (Map.class.isAssignableFrom(subClazz)) || (List.class.isAssignableFrom(subClazz)) || (subClazz.isEnum())) {
         return getList(field, cs.getConfigurationSection(path), path, depth);
       }
@@ -93,7 +94,7 @@ public abstract class ConfigObject
   protected Object saveObject(Object obj, Field field, ConfigurationSection cs, String path, int depth)
     throws Exception
   {
-    Class clazz = getClassAtDepth(field.getGenericType(), depth);
+    Class<?> clazz = getClassAtDepth(field.getGenericType(), depth);
     if ((ConfigObject.class.isAssignableFrom(clazz)) && (isConfigObject(obj))) {
       return getConfigObject((ConfigObject)obj, path, cs);
     }
@@ -104,23 +105,23 @@ public abstract class ConfigObject
       return getVector((Vector)obj);
     }
     if ((Map.class.isAssignableFrom(clazz)) && (isMap(obj))) {
-      return getMap((Map)obj, field, cs, path, depth);
+      return getMap((Map<String, ?>)obj, field, cs, path, depth);
     }
     if ((clazz.isEnum()) && (isEnum(clazz, obj))) {
-      return getEnum((Enum)obj);
+      return getEnum((Enum<?>)obj);
     }
     if ((List.class.isAssignableFrom(clazz)) && (isList(obj)))
     {
-      Class subClazz = getClassAtDepth(field.getGenericType(), depth + 1);
+      Class<?> subClazz = getClassAtDepth(field.getGenericType(), depth + 1);
       if ((ConfigObject.class.isAssignableFrom(subClazz)) || (Location.class.isAssignableFrom(subClazz)) || (Vector.class.isAssignableFrom(subClazz)) || (Map.class.isAssignableFrom(subClazz)) || (List.class.isAssignableFrom(subClazz)) || (subClazz.isEnum())) {
-        return getList((List)obj, field, cs, path, depth);
+        return getList((List<?>)obj, field, cs, path, depth);
       }
       return obj;
     }
     return obj;
   }
   
-  protected Class getClassAtDepth(Type type, int depth)
+  protected Class<?> getClassAtDepth(Type type, int depth)
     throws Exception
   {
     if (depth <= 0)
@@ -240,7 +241,7 @@ public abstract class ConfigObject
   {
     try
     {
-      return (Map)obj != null;
+      return (Map<?, ?>)obj != null;
     }
     catch (Exception e) {}
     return false;
@@ -250,13 +251,13 @@ public abstract class ConfigObject
   {
     try
     {
-      return (List)obj != null;
+      return (List<?>)obj != null;
     }
     catch (Exception e) {}
     return false;
   }
   
-  protected boolean isEnum(Class clazz, Object obj)
+  protected boolean isEnum(Class<?> clazz, Object obj)
   {
     if (!clazz.isEnum()) {
       return false;
@@ -269,7 +270,7 @@ public abstract class ConfigObject
     return false;
   }
   
-  protected ConfigObject getConfigObject(Class clazz, ConfigurationSection cs)
+  protected ConfigObject getConfigObject(Class<?> clazz, ConfigurationSection cs)
     throws Exception
   {
     ConfigObject obj = (ConfigObject)clazz.newInstance();
@@ -309,12 +310,12 @@ public abstract class ConfigObject
     return new Vector(x, y, z);
   }
   
-  protected Map getMap(Field field, ConfigurationSection cs, String path, int depth)
+  protected Map<String, Object> getMap(Field field, ConfigurationSection cs, String path, int depth)
     throws Exception
   {
     depth++;
     Set<String> keys = cs.getKeys(false);
-    Map map = new HashMap();
+    Map<String, Object> map = new HashMap<String, Object>();
     if ((keys != null) && (keys.size() > 0)) {
       for (String key : keys)
       {
@@ -326,7 +327,7 @@ public abstract class ConfigObject
     return map;
   }
   
-  protected List getList(Field field, ConfigurationSection cs, String path, int depth)
+  protected List<Object> getList(Field field, ConfigurationSection cs, String path, int depth)
     throws Exception
   {
     depth++;
@@ -335,7 +336,7 @@ public abstract class ConfigObject
     if (key.lastIndexOf(".") >= 0) {
       key = key.substring(key.lastIndexOf("."));
     }
-    List list = new ArrayList();
+    List<Object> list = new ArrayList<Object>();
     if (listSize > 0)
     {
       int loaded = 0;
@@ -358,14 +359,14 @@ public abstract class ConfigObject
     return list;
   }
   
-  protected Enum getEnum(Class clazz, String string)
+  protected Enum<?> getEnum(Class<?> clazz, String string)
     throws Exception
   {
     if (!clazz.isEnum()) {
       throw new Exception("Class " + clazz.getName() + " is not an enum.");
     }
     for (Object constant : clazz.getEnumConstants()) {
-      if (((Enum)constant).toString().equals(string)) {
+      if (((Enum<?>)constant).toString().equals(string)) {
         return (Enum)constant;
       }
     }
@@ -450,7 +451,7 @@ public abstract class ConfigObject
     return data.toJSONString();
   }
   
-  protected ConfigurationSection getMap(Map map, Field field, ConfigurationSection cs, String path, int depth)
+  protected ConfigurationSection getMap(Map<String, ?> map, Field field, ConfigurationSection cs, String path, int depth)
     throws Exception
   {
     depth++;
@@ -467,7 +468,7 @@ public abstract class ConfigObject
     return subCS;
   }
   
-  protected ConfigurationSection getList(List list, Field field, ConfigurationSection cs, String path, int depth)
+  protected ConfigurationSection getList(List<?> list, Field field, ConfigurationSection cs, String path, int depth)
     throws Exception
   {
     depth++;
@@ -487,7 +488,7 @@ public abstract class ConfigObject
     return subCS;
   }
   
-  protected String getEnum(Enum enumObj)
+  protected String getEnum(Enum<?> enumObj)
   {
     return enumObj.toString();
   }

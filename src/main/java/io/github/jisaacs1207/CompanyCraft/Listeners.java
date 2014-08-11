@@ -88,7 +88,7 @@ public class Listeners
             this.cc.saveEconomy();
             e.getPlayer().sendMessage(price.doubleValue() * Integer.valueOf(s.getLine(3)).intValue() + " has been deducted from your account!");
             e.getPlayer().getInventory().addItem(new ItemStack[] { i });
-            e.getPlayer().updateInventory();
+            e.getPlayer().updateInventory();;
             
             this.cc.loadEconomy();
             for (String w : this.c.players) {

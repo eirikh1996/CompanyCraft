@@ -1,34 +1,28 @@
 package io.github.jisaacs1207.CompanyCraft;
 
 import com.sk89q.worldedit.BlockVector;
-import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import com.sk89q.worldedit.bukkit.selections.Selection;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.logging.Logger;
-import net.milkbowl.vault.economy.Economy;
+
 import net.milkbowl.vault.economy.EconomyResponse;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Server;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.plugin.PluginManager;
 
 public class Commands
   implements CommandExecutor
@@ -402,12 +396,12 @@ public class Commands
     if ((cmd.getName().equalsIgnoreCase("ccStockList")) && 
       ((sender instanceof Player)))
     {
-      ArrayList<String> companies = new ArrayList();
-      ArrayList<Integer> amountSelling = new ArrayList();
-      ArrayList<Integer> amountPerStock = new ArrayList();
-      for (company = this.cc.getCompanyList().iterator(); ((Iterator)company).hasNext();)
+      ArrayList<String> companies = new ArrayList<String>();
+      ArrayList<Integer> amountSelling = new ArrayList<Integer>();
+      ArrayList<Integer> amountPerStock = new ArrayList<Integer>();
+      for (company = this.cc.getCompanyList().iterator(); ((Iterator<?>)company).hasNext();)
       {
-        String w = (String)((Iterator)company).next();
+        String w = (String)((Iterator<?>)company).next();
         if (this.c.stockForSale.get(w) != null)
         {
           companies.add(w);
