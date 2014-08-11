@@ -1,0 +1,82 @@
+name: Company Craft
+main: io.github.jisaacs1207.CompanyCraft.CompanyCraft
+version: 1.0
+commands:
+   createCompany:
+      description: This is a demo command.
+      usage: /<command> CompanyName
+   ccProtect:
+      description: This is a demo command.
+      usage: /<command>
+   ccLeave:
+      description: This is a demo command.
+      usage: /<command>
+   ccList:
+      description: This is a demo command.
+      usage: /<command>
+   ccInvite:
+      description: This is a demo command.
+      usage: /<command>
+   ccJoin:
+      description: This is a demo command.
+      usage: /<command>
+   ccInfo:
+      description: This is a demo command.
+      usage: /<command>
+   ccSetDesc:
+      description: This is a demo command.
+      usage: /<command>
+   debug:
+      description: This is a demo command.
+      usage: /<command>
+   ccMoney:
+      description: This is a demo command.
+      usage: /<command>
+   ccBalance:
+      description: This is a demo command.
+      usage: /<command>
+   ccDisband:
+      description: This is a demo command.
+      usage: /<command>
+   ccSellStock:
+      description: This is a demo command.
+      usage: /<command>
+   ccStockList:
+      description: This is a demo command.
+      usage: /<command>
+   ccBuyStock:
+      description: This is a demo command.
+      usage: /<command>
+   ccSellItem:
+      description: This is a demo command.
+      usage: /<command>
+   ccProtectArea:
+      description: This is a demo command.
+      usage: /<command>
+   Stock:
+      description: This is a demo command.
+      usage: /<command>
+   ccSetHome:
+      description: This is a demo command.
+      usage: /<command>
+   ccHome:
+      description: This is a demo command.
+      usage: /<command>
+   ccSign:
+      description: This is a demo command.
+      usage: /<command>
+   ccMyStock:
+      description: This is a demo command.
+      usage: /<command>
+   ccSellItemInHand:
+      description: This is a demo command.
+      usage: /<command>
+   ccCreateShop:
+      description: This is a demo command.
+      usage: /<command>
+   ccShopSign:
+      description: This is a demo command.
+      usage: /<command>
+   setPosition:
+      description: This is a demo command.
+      usage: /<command>
